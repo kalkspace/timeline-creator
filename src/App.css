@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  padding: 1rem;
+}
+
+.csv-import {
+  height: 100%;
+  width: calc(50% - 2rem);
+  /* margin: 1rem; */
+}
+
+#timeline {
+  width: 50%;
+  position: relative;
+  align-self: stretch;
+  height: calc(100% - 4rem);
+}
+
+.milestones__group__label-vertical .wrapper {
+  min-width: max-content;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+}
