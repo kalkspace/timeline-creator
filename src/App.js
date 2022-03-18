@@ -46,12 +46,19 @@ function App() {
 
   return (
     <div className="App">
-      <textarea
-        className="csv-import"
-        rows="10"
-        value={csv}
-        onChange={(e) => setCSV(e.target.value)}
-      ></textarea>
+      <div className="content">
+        <header>
+          <h1>Time of my ... </h1>
+          <h2>Mach eine Timeline aus deinen Daten</h2>
+          <p>Hier Daten im .csv-Format eingeben: Datum, Titel</p>
+        </header>
+        <textarea
+          className="csv-import"
+          rows="10"
+          value={csv}
+          onChange={(e) => setCSV(e.target.value)}
+        ></textarea>
+      </div>
       <div id="timeline"></div>
     </div>
   );
