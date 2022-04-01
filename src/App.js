@@ -39,6 +39,15 @@ function App() {
     renderTimeline(data);
   }, [data]);
 
+  const createEmbed = () => {
+    const embedCode = `
+<script src="${document.location.origin}/embed.js"></script>
+<script id="timeline-data" type="application/json">${JSON.stringify(
+      data
+    )}</script>`;
+    console.log(embedCode);
+  };
+
   return (
     <div className="App">
       <div className="content">
@@ -53,6 +62,7 @@ function App() {
           value={csv}
           onChange={(e) => setCSV(e.target.value)}
         ></textarea>
+        <button onClick={createEmbed}>Generate Embed</button>
       </div>
       <div id="timeline"></div>
     </div>
