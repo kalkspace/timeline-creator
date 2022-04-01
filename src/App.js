@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import milestones from "d3-milestones";
 import "d3-milestones/build/d3-milestones.css";
 import Papa from "papaparse";
@@ -21,16 +21,20 @@ const DUMMY = `Datum,Titel,Beschreibung
 11.09.2019,Erster Mittwoch im Space,
 28.09.2019,Eröffnung,`;
 
+function transformData(csv) {
+  const eventData = Papa.parse(csv, { skipEmptyLines: true }).data.slice(1);
+  const transformedEventData = eventData.map((data) => ({
+    date: data[0],
+    title: data[1],
+  }));
+  return transformedEventData;
+}
+
 function App() {
   const [csv, setCSV] = useState(DUMMY);
+  const data = useMemo(() => transformData(csv), [csv]);
 
   useEffect(() => {
-    const eventData = Papa.parse(csv, { skipEmptyLines: true }).data.slice(1);
-    const transformedEventData = eventData.map((data) => ({
-      date: data[0],
-      title: data[1],
-    }));
-    console.log({ transformedEventData });
     milestones("#timeline")
       .orientation("vertical")
       .mapping({
@@ -41,8 +45,8 @@ function App() {
       .labelFormat("%d.%m.%Y")
       .autoResize(true)
       .optimize(false) // does not work reliably
-      .render(transformedEventData);
-  }, [csv]);
+      .render(data);
+  }, [data]);
 
   return (
     <div className="App">
