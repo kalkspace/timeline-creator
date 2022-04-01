@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useMemo } from "react";
-import milestones from "d3-milestones";
 import "d3-milestones/build/d3-milestones.css";
 import Papa from "papaparse";
+
+import { renderTimeline } from "./render";
 
 import "./App.css";
 
@@ -35,17 +36,7 @@ function App() {
   const data = useMemo(() => transformData(csv), [csv]);
 
   useEffect(() => {
-    milestones("#timeline")
-      .orientation("vertical")
-      .mapping({
-        timestamp: "date",
-        text: "title",
-      })
-      .parseTime("%d.%m.%Y")
-      .labelFormat("%d.%m.%Y")
-      .autoResize(true)
-      .optimize(false) // does not work reliably
-      .render(data);
+    renderTimeline(data);
   }, [data]);
 
   return (
